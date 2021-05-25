@@ -16,7 +16,6 @@ app.get("/MovieName", (req, res) => {
     const dataMoovies = movieName.map(elem => {
         return {
             name: elem.name,
-            poster_path: elem.poster_path,
             Date: elem.Date
         }
     })
