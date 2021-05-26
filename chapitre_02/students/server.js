@@ -18,6 +18,7 @@ app.get("/students", (req, res) => {
 })
 
 app.post("/students", (req,res)=> {
+    
     const addStudent = req.body
 
     students.push(addStudent)
