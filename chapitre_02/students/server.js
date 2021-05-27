@@ -8,17 +8,17 @@ app.use(cors())
 
 const port = 3499
 
+const students = [{ name: "Osman" }]
 
 app.get("/students", (req, res) => {
 
-    const students = ["Maria", "Rayhan", "Osman"]
 
     // console.log("test de students");
-    res.send(students)
+    res.json(students)
 })
 
-app.post("/students", (req,res)=> {
-    
+app.post("/students", (req, res) => {
+
     const addStudent = req.body
 
     students.push(addStudent)
@@ -28,6 +28,13 @@ app.post("/students", (req,res)=> {
     })
 })
 
+app.get("*", (req, res) => {
+
+    res.json({
+        message: "The page was not found :'( "
+    })
+})
+
 app.listen(port, () => {
-    console.log(`Server à l'écoute dans le port ${port}`);
+    console.log(`Server on localhost ${port}`);
 })
