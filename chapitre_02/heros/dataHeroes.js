@@ -1,4 +1,4 @@
-const heroes = [
+const superHeros = [
     {
         name: "Iron Man",
         power: ["money"],
@@ -25,4 +25,4 @@ const heroes = [
     }
 ]
 
-module.exports = { heroes}
+module.exports = { superHeros}

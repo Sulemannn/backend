@@ -1,7 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 
-const { heroes } = require("./dataHeroes")
+const { superHeros } = require("./dataHeroes")
 
 const app = express()
 
@@ -11,10 +11,10 @@ app.use(cors())
 const port = 3499
 
 
-// app.use(function (req, res, next) {
-//     console.log('infos data', data);
-//     next();
-// });
+app.use(function (req, res, next) {
+    console.log('infos data', data);
+    next();
+});
 
 app.get("/heroes", (req, res) => {
 
