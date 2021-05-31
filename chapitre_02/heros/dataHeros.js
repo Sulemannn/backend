@@ -25,4 +25,4 @@ const superHeros = [
     }
 ]
 
-module.exports = { superHeros}
+module.exports = { superHeros }
