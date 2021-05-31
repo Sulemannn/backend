@@ -43,10 +43,25 @@ app.get("/heroes", (req, res) => {
 
 app.get("/heroes/:name", (req, res) => {
 
-    // console.log("one hero name", req.params.name);
+    const heroName = req.params.name.toLowerCase()
+    // console.log("heroName", req.params.name);
 
-    const oneHero = req.params.oneHero
-    res.json(oneHero)
+    const oneHero = superHeros.filter( filteredHero => {
+        // console.log("oneHero filtered", elem);
+
+        return filteredHero.name.toLowerCase() === heroName
+
+    })
+
+    if (oneHero) {
+
+        res.json(oneHero)
+    } else {
+
+        res.json({
+            message: "Not found any hero with this name !"
+        })
+    }
 })
 
 
