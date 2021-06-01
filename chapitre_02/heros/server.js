@@ -1,71 +1,104 @@
-const express = require("express")
-const cors = require("cors")
+import express from "express"
+import cors from "cors"
+import { superHeros } from './dataHeroes.mjs'
 
-const { superHeros } = require("./dataHeros")
+const port = 8000
 
 const app = express()
 
-app.use(express.json())
+const debug = (req, res, next) => {
+    console.log("I received a request!");
+
+    next()
+}
+
 app.use(cors())
-// app.use(debug)
 
-const port = 8000;
+app.use(express.json())
 
-
-// app.use(function (req, res, next) {
-//     console.log('infos data', data);
-//     next();
-// });
-
-// const debug = (req, res, next) => {
-//     console.log("Server requested")
-
-//     next()
-// }
-
-
-app.post("/heroes", (req, res) => {
-    
-    const superHerosPostman = req.params.body
-    
-    superHeros.push(superHerosPostman)
-    
-    res.json({
-        test: "Testing all paths"
-    })
-})
-
+app.use(debug)
 
 app.get("/heroes", (req, res) => {
-
     res.json(superHeros)
 })
 
 app.get("/heroes/:name", (req, res) => {
+    const nameHero = req.params.name.toLowerCase()
 
-    const heroName = req.params.name.toLowerCase()
-    // console.log("heroName", req.params.name);
+    for (var i = 0; i < superHeros.length; i++) {
 
-    const oneHero = superHeros.filter( filteredHero => {
-        // console.log("oneHero filtered", elem);
+        if (superHeros[i].name.toLowerCase() === nameHero) {
+            res.json(superHeros[i])
+        }
+    }
 
-        return filteredHero.name.toLowerCase() === heroName
+    res.json({
+        message: "Hero not found"
+    })
+})
 
+app.get("/heroes/:name/powers", (req, res) => {
+    const nameHero = req.params.name.toLowerCase()
+
+    const selectedHero = superHeros.find(elem => {
+        return nameHero === elem.name.toLowerCase()
     })
 
-    if (oneHero) {
+    res.json(selectedHero.powers)
+})
 
-        res.json(oneHero)
+const transformName = (req, res, next) => {
+    // console.log("transformName req.body ", req.body);
+    // console.log("transformName req.body.name ", req.body.name);
+
+    if (req.body.name === undefined) {
+        res.json({
+            erroMessage: "To add a hero send at least he's name"
+        })
     } else {
+        req.body.name = req.body.name.toLowerCase()
+
+        next()
+    }
+
+}
+
+app.post("/heroes", transformName, (req, res) => {
+    // console.log(req.body);
+
+    const hero = req.body
+
+    superHeros.push(hero)
+
+    res.json({
+        message: "Ok, héro ajouté",
+        hero
+    })
+    })
+
+app.post("/heroes/:name/powers", (req, res) => {
+    const nameHero = req.params.name.toLowerCase()
+
+    const selectedHero = superHeros.find(elem => {
+        return nameHero === elem.name.toLowerCase()
+    })
+
+    if (selectedHero) {
+
+
+        const heroPower = req.body.power
+
+        selectedHero.powers.push(heroPower)
 
         res.json({
-            message: "Not found any hero with this name !"
+            message: `Power added! The powers of ${nameHero} are ${selectedHero.powers}`
+        })
+    } else {
+        res.json({
+            errorMessage: "Hero not found"
         })
     }
 })
-
-
-
 
 
 app.get("*", (req, res) => {
@@ -77,5 +110,5 @@ app.get("*", (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Server on localhost ${port}`);
+    console.log("Server on localhost", port);
 })

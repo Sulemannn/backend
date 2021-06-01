@@ -1,7 +1,7 @@
-const superHeros = [
+export const superHeros = [
     {
         name: "Iron Man",
-        power: ["money"],
+        powers: ["money"],
         color: "red",
         isAlive: true,
         age: 46,
@@ -9,7 +9,7 @@ const superHeros = [
     },
     {
         name: "Thor",
-        power: ["electricty", "worthy"],
+        powers: ["electricity", "worthy"],
         color: "blue",
         isAlive: true,
         age: 300,
@@ -17,12 +17,10 @@ const superHeros = [
     },
     {
         name: "Daredevil",
-        power: ["blind"],
+        powers: ["blind"],
         color: "red",
         isAlive: false,
         age: 30,
         image: "https://aws.vdkimg.com/film/2/5/1/1/251170_backdrop_scale_1280xauto.jpg"
     }
 ]
-
-module.exports = { superHeros }
