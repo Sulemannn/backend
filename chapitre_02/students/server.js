@@ -28,7 +28,7 @@ app.post("/students", (req, res) => {
     })
 })
 
-app.get("*", (req, res) => {
+app.get("*", (req, res) =
 
     res.json({
         message: "The page was not found :'( "
