@@ -11,6 +11,6 @@ const hotelSchema = new mongoose.Schema({
     prieceCategory: {type: Number, min: 1, max: 3}
 })
 
-const Hotels = mongoose.model("Hotel", hotelSchema)
+const Hotel = mongoose.model("Hotel", hotelSchema)
 
-module.exports = Hotels
+module.exports = Hotel
