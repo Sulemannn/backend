@@ -24,10 +24,26 @@ app.get("/", (req, res) => {
     })
 })
 
-app.get("/users/add", (req, res) => {
+app.post("/users/add", (req, res) => {
 
     res.json({
         message: "all users !"
+    })
+})
+
+
+app.get("/users/:username", (req, res) => {
+
+    res.json({
+        message: "Got the username !"
+    })
+})
+
+
+app.get("/users/:email", (req, res) => {
+
+    res.json({
+        message: "Got the email !"
     })
 })
 
