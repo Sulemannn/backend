@@ -1,12 +1,14 @@
 const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
+const { debug } = require("./middlewares/debug")
+const { heroesRoutes } = require("./routes/heroesRoutes")
 
-mongoose.connect("mongodb://localhost:27017/validation", (err) => {
+mongoose.connect("mongodb://localhost:27017/herosDB", { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
-        console.error(err)
+        console.error(err);
     } else {
-        console.log("I'm connected to the database");
+        console.log("I'm connected to the database")
     }
 })
 
@@ -15,39 +17,13 @@ const port = 8000
 const app = express()
 
 app.use(cors())
+
 app.use(express.json())
 
-app.get("/", (req, res) => {
+app.use(debug)
 
-    res.json({
-        message: "Sent all users !"
-    })
-})
-
-app.post("/users/add", (req, res) => {
-
-    res.json({
-        message: "all users !"
-    })
-})
-
-
-app.get("/users/:username", (req, res) => {
-
-    res.json({
-        message: "Got the username !"
-    })
-})
-
-
-app.get("/users/:email", (req, res) => {
-
-    res.json({
-        message: "Got the email !"
-    })
-})
-
+app.use("/heroes", heroesRoutes)
 
 app.listen(port, () => {
-    console.log(`Server on localhost : ${port}`);
+    console.log("Server is listening at port ", port);
 })
