@@ -8,7 +8,7 @@ const { City } = require("../models/city")
 router.get("/add",
     expressValidator.body("username").exists().isLength({ min: 4 }),
     expressValidator.body("email").exists().isEmail(),
-    expressValidator.body("age").exists().isInt().isLength(({ min: 2, max: 2 })),
+    expressValidator.body("age").exists().isInt({ min: 2, max: 2 }),
     expressValidator.body("city").exists().equals("Paris" || "Tokyo" || "Los Angeles"),
 
 
@@ -32,11 +32,4 @@ router.get("/add",
     }
 );
 
-// router.get("/", sendHeroList)
-
-// router.get("/:name", sendHero)
-
-// router.get("/:name/powers", sendHeroPower)
-
-// router.post("/", transformName, continueIfHeroDoesntExists, addNewHero)
 
