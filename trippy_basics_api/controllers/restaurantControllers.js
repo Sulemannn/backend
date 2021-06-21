@@ -1,4 +1,4 @@
-const restaurantModel = require("../models/restaurant")
+const restaurantModel = require("../models/restaurantModels")
 const expressValidator = require("express-validator");
 
 const getRestaurants = async (req, res) => {
