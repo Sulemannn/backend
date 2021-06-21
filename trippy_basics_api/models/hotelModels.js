@@ -9,6 +9,7 @@ const hotelSchema = new mongoose.Schema({
     hasSpa: Boolean,
     hasPool: Boolean,
     priceCategory: { type: Number, min: 1, max: 3 },
+    rooms: [objectID],
     created: { type: Date, default: Date.now }
 })
 

@@ -8,4 +8,4 @@ const tableSchema = new mongoose.Schema({
 
 const tableModel = mongoose.model("Table", tableSchema)
 
-module.exports = { tableModel }
+module.exports = tableModel 

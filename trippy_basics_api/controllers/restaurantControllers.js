@@ -3,6 +3,10 @@ const expressValidator = require("express-validator");
 
 const getRestaurants = async (req, res) => {
     try {
+
+        const idRestaurants = req.params.id
+        const  idRestaurants = await restaurantModel.findById(idRestaurants).lean()
+
         const restaurants = await restaurantModel.find().lean()
 
         res.json(restaurants)

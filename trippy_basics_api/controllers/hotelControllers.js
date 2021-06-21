@@ -3,6 +3,10 @@ const expressValidator = require("express-validator");
 
 const getHotels = async (req, res) => {
     try {
+        const idHotels = req.params.id
+        const idHotels = await hotelModel.findById(idHotels).lean()
+
+
         const hotels = await hotelModel.find().lean()
 
         res.json(hotels)
