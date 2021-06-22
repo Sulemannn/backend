@@ -1,15 +1,17 @@
 const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
+const { debug } = require("./middleware/debug")
 
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
-const port = 8000;
-const app = express()
 
+// middlewares
+const app = express()
 app.use(cors())
 app.use(express.json())
+
 
 mongoose.connect("mongodb://localhost:27017/login", { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
@@ -19,29 +21,46 @@ mongoose.connect("mongodb://localhost:27017/login", { useNewUrlParser: true, use
     }
 })
 
-const signUp = async (req, res) => {
+
+app.post("/signup", async (req, res) => {
+
     try {
         const username = req.body.username
-        const pw = req.body.pw
+        const password = req.body.password
 
-        const signing = await signup.findOne({ username, pw })
+        const signup = await signup.findMany({ username, password })
 
 
         res.json("I am logged in !")
+
     } catch (err) {
         console.error(err)
 
-        res.status(500).json({ errorMessage: "Probleeeem !!" })
+        res.status(500).json({ errorMessage: "I couldn't connect" })
     }
-}
+})
 
-app.post("/signup", (req, res) => {
 
-    
+app.post("/login", async (req, res) => {
+
+    try {
+        const username = req.body.username
+
+        const login = await login.findOne({ username })
+
+
+        res.json("I am logged in !")
+
+    } catch (err) {
+        console.error(err)
+
+        res.status(500).json({ errorMessage: "I couldn't connect" })
+    }
 })
 
 
 
+const port = 8000
 
 app.listen(port, () => {
     console.log(`Server on localhost : ${port}`);
